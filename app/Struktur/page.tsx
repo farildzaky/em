@@ -26,11 +26,12 @@ import { motion, useScroll, useTransform } from "framer-motion";
 const Struktur = () => {
   const { scrollY } = useScroll();
 
+
   const leftImageY = useTransform(scrollY, [0, 200, 400], [0, -100, -200]);
   const leftImageOpacity = useTransform(scrollY, [0, 200, 400], [1, 1, 0]);
   const leftTextOpacity = useTransform(scrollY, [200, 400], [1, 0]);
 
-  // Gambar kanan turun ke bawah
+ 
   const rightImageY = useTransform(scrollY, [0, 200, 400], [0, 100, 200]);
   const rightImageOpacity = useTransform(scrollY, [0, 200, 400], [1, 1, 0]);
   const rightTextOpacity = useTransform(scrollY, [200, 400], [1, 0]);
