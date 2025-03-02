@@ -232,7 +232,7 @@ const Struktur = () => {
     <div className="w-full ">
       <Navbar />
 
-      <div className="font-helvetica bg-white pb-20 ">
+      <div className="font-helvetica bg-white pb-20 pt-24">
         <motion.div
           initial={{ x: -100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
