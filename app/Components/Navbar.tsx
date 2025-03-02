@@ -27,7 +27,7 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-0 z-[100] shadow-lg bg-white w-full">
-      <div className="flex px-3 lg:px-24 py-3 justify-between items-center font-helvetica relative">
+      <div className="flex px-3 lg:px-24 py-3 justify-between items-center font-helvetica relative text-[#00094D]">
         <Link href="/home">
           <Image src={logo} alt="logo" className="lg:h-16 h-10" draggable />
         </Link>
