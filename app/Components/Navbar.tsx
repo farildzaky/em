@@ -6,20 +6,35 @@ import Link from "next/link";
 import React from "react";
 import logo from "../Assets/logonav.svg";
 import hamburger from "../Assets/hamburger.svg";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+  const topVariants = {
+    closed: { rotate: 0, y: 0 },
+    open: { rotate: 45, y: 8 },
+  };
 
+  const middleVariants = {
+    closed: { opacity: 1 },
+    open: { opacity: 0 },
+  };
+
+  const bottomVariants = {
+    closed: { rotate: 0, y: 0 },
+    open: { rotate: -45, y: -8 },
+  };
+
+  const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen((prev) => !prev);
 
   return (
-    <nav className="sticky top-0 z-[100] shadow-lg bg-white">
+    // Ubah "sticky" menjadi "fixed"
+    <nav className="fixed top-0 z-[100] shadow-lg bg-white w-full">
       <div className="flex px-3 lg:px-24 py-3 justify-between items-center font-helvetica relative">
         <Link href="/home">
           <Image src={logo} alt="logo" className="lg:h-16 h-10" draggable />
         </Link>
 
-        
         <ul className="lg:flex hidden gap-10 items-center">
           <li className="relative group">
             <Link href="/Home" className="text-xl font-medium">
@@ -50,32 +65,49 @@ export default function Navbar() {
           </li>
         </ul>
 
-      
         <div className="lg:hidden relative z-50">
           <button onClick={toggleMenu} aria-label="Toggle Menu" className="transition-all duration-300">
-            {isOpen ? (
-              <svg
-                className="w-8 h-8 text-[#007B8E] cursor-pointer transition-all duration-300"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
-            ) : (
-              <Image src={hamburger} alt="Menu" className="w-8 h-8 cursor-pointer transition-all duration-300" />
-            )}
+            <AnimatePresence mode="wait">
+              {isOpen ? (
+                <motion.svg
+                  key="close"
+                  initial={{ opacity: 0, rotate: -90 }}
+                  animate={{ opacity: 1, rotate: 0 }}
+                  exit={{ opacity: 0, rotate: 90 }}
+                  transition={{ duration: 0.3 }}
+                  className="w-8 h-8 text-[#007B8E] cursor-pointer"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </motion.svg>
+              ) : (
+                <motion.div
+                  key="hamburger"
+                  initial={{ opacity: 0, rotate: 90 }}
+                  animate={{ opacity: 1, rotate: 0 }}
+                  exit={{ opacity: 0, rotate: -90 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <Image
+                    src={hamburger}
+                    alt="Menu"
+                    className="w-8 h-8 cursor-pointer transition-all duration-300"
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
           </button>
         </div>
       </div>
 
-      
       <div
-        className={`fixed  right-0 w-full bg-white shadow-md transform transition-transform duration-300 z-40 ${
+        className={`fixed right-0 w-full bg-white shadow-md transform transition-transform duration-300 z-40 ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >

@@ -48,6 +48,7 @@ const Struktur = () => {
 
   const kiriX = useTransform(scrollY, [0, 1000], [-300, 0]);
   const kiriY = useTransform(scrollY, [0, 1000], [300, 0]);
+
   const kananX = useTransform(scrollY, [0, 1000], [300, 0]);
   const kananY = useTransform(scrollY, [0, 1000], [300, 0]);
 
@@ -72,7 +73,7 @@ const Struktur = () => {
   const kanan4X = useTransform(scrollY, [0, 5300], [500, 0]);
   const kanan4Y = useTransform(scrollY, [0, 5300], [500, 0]);
   const opakiri4 = useTransform(scrollY, [0, 5800], [0, 1]);
-  const opakanan4 = useTransform(scrollY, [0, 5500], [0, 1]);
+  const opakanan4 = useTransform(scrollY, [0, 5800], [0, 1]);
 
   const prokerparo = [
     {
