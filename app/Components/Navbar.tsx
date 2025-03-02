@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -8,27 +8,24 @@ import logo from "../Assets/logonav.svg";
 import hamburger from "../Assets/hamburger.svg";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function Navbar() {
-  const topVariants = {
-    closed: { rotate: 0, y: 0 },
-    open: { rotate: 45, y: 8 },
-  };
-
-  const middleVariants = {
-    closed: { opacity: 1 },
-    open: { opacity: 0 },
-  };
-
-  const bottomVariants = {
-    closed: { rotate: 0, y: 0 },
-    open: { rotate: -45, y: -8 },
-  };
-
+const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen((prev) => !prev);
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setIsOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
-    // Ubah "sticky" menjadi "fixed"
     <nav className="fixed top-0 z-[100] shadow-lg bg-white w-full">
       <div className="flex px-3 lg:px-24 py-3 justify-between items-center font-helvetica relative">
         <Link href="/home">
@@ -162,3 +159,5 @@ export default function Navbar() {
     </nav>
   );
 }
+
+export default Navbar;
